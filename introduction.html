@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이경희 — 강의 · 공예</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1a1a;
+    --ink-muted: #6b6b6b;
+    --ink-faint: #b0a89a;
+    --paper: #faf8f5;
+    --paper-warm: #f3efe8;
+    --accent: #8c6d4f;
+    --accent-light: #d4b896;
+    --accent-pale: #f0e8dc;
+    --line: rgba(140,109,79,0.18);
+    --serif: 'Noto Serif KR', serif;
+    --sans: 'Noto Sans KR', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.1rem 2.5rem;
+    background: rgba(250,248,245,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1rem;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    font-weight: 400;
+  }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a {
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: color 0.25s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 6rem 2.5rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: 0; right: 0;
+    width: 45%; height: 100%;
+    background: var(--paper-warm);
+    clip-path: polygon(12% 0, 100% 0, 100% 100%, 0 100%);
+  }
+  .hero-inner {
+    position: relative; z-index: 1;
+    max-width: 900px; margin: 0 auto; width: 100%;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+  }
+  .hero-eyebrow {
+    font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 1.2rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: block; width: 2rem; height: 1px; background: var(--accent-light);
+  }
+  h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.4rem, 5vw, 3.4rem);
+    font-weight: 300;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 0.3rem;
+  }
+  h1 em {
+    font-style: normal;
+    color: var(--accent);
+    display: block;
+    font-size: 0.55em;
+    letter-spacing: 0.08em;
+    font-family: var(--sans);
+    font-weight: 300;
+    margin-top: 0.4rem;
+  }
+  .hero-desc {
+    margin-top: 1.8rem;
+    font-size: 0.95rem;
+    color: var(--ink-muted);
+    line-height: 1.9;
+    max-width: 34ch;
+  }
+  .hero-cta {
+    margin-top: 2.4rem;
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent-light);
+    padding-bottom: 0.15rem;
+    transition: gap 0.25s;
+  }
+  .hero-cta:hover { gap: 1rem; }
+  .hero-visual { display: flex; flex-direction: column; gap: 1rem; }
+  .badge-stack { display: flex; flex-direction: column; gap: 0.75rem; }
+  .badge {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 0.5rem;
+    padding: 1.1rem 1.4rem;
+    display: flex; align-items: center; gap: 1rem;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .badge:hover { transform: translateX(6px); box-shadow: -4px 4px 0 var(--accent-pale); }
+  .badge-icon {
+    width: 2.4rem; height: 2.4rem; border-radius: 50%;
+    background: var(--accent-pale);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; flex-shrink: 0;
+  }
+  .badge-title { font-size: 0.88rem; font-weight: 500; color: var(--ink); }
+  .badge-sub { font-size: 0.75rem; color: var(--ink-muted); margin-top: 0.05rem; }
+
+  /* ── SECTION BASE ── */
+  section { padding: 5rem 2.5rem; }
+  .section-inner { max-width: 900px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--accent-light); margin-bottom: 3rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+
+  /* ── ABOUT ── */
+  .about { background: var(--paper-warm); }
+  .about-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; align-items: start; }
+  .about-name {
+    font-family: var(--serif);
+    font-size: 2rem; font-weight: 300;
+    line-height: 1.3; color: var(--ink);
+  }
+  .about-divider { width: 2rem; height: 2px; background: var(--accent-light); margin: 1.2rem 0; }
+  .about-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .tag {
+    font-size: 0.72rem; letter-spacing: 0.08em;
+    padding: 0.3rem 0.7rem;
+    border: 1px solid var(--accent-light);
+    border-radius: 2rem;
+    color: var(--accent);
+  }
+  .about-right p {
+    font-size: 0.96rem; color: var(--ink-muted); line-height: 2;
+    margin-bottom: 1.2rem;
+  }
+  .about-right p:last-child { margin-bottom: 0; }
+  .highlight { color: var(--accent); font-weight: 500; }
+
+  /* ── ACTIVITY SECTIONS ── */
+  .act-1 { background: #fdf9f5; }
+  .act-2 { background: #f6f1e7; }
+  .act-3 { background: #eee8dc; }
+
+  .chapter-inner {
+    display: grid; grid-template-columns: 5.5rem 1fr; gap: 2.5rem; align-items: start;
+    max-width: 900px; margin: 0 auto;
+  }
+  .chapter-num {
+    font-family: var(--serif);
+    font-size: 3.6rem; font-weight: 300;
+    color: var(--accent-pale); line-height: 1;
+    padding-top: 0.15rem; user-select: none;
+  }
+  .chapter-title {
+    font-family: var(--serif);
+    font-size: 1.65rem; font-weight: 300;
+    color: var(--ink); line-height: 1.3; margin-bottom: 0.55rem;
+  }
+  .chapter-accent {
+    width: 2.2rem; height: 2px; margin-bottom: 1rem; border-radius: 1px;
+  }
+  .act-1 .chapter-accent { background: #d4b896; }
+  .act-2 .chapter-accent { background: #c4a87e; }
+  .act-3 .chapter-accent { background: #b09060; }
+
+  .chapter-desc {
+    font-size: 0.9rem; color: var(--ink-muted);
+    line-height: 1.95; max-width: 54ch;
+  }
+  .photo-gallery-inner {
+    max-width: 900px; margin: 0 auto;
+  }
+
+  /* ── MORE BUTTON ── */
+  .more-btn {
+    margin-top: 1.2rem;
+    display: inline-flex; align-items: center; gap: 0.45rem;
+    font-size: 0.76rem; letter-spacing: 0.1em;
+    font-family: var(--sans); color: var(--accent);
+    background: none; border: none;
+    border-bottom: 1px solid var(--accent-light);
+    padding-bottom: 0.1rem; cursor: pointer;
+    transition: gap 0.25s, color 0.2s;
+  }
+  .more-btn:hover { gap: 0.75rem; }
+  .more-btn .arrow { transition: transform 0.3s; display: inline-block; }
+  .more-btn.open { color: var(--ink-muted); border-bottom-color: var(--line); }
+  .more-btn.open .arrow { transform: rotate(180deg); }
+
+  /* ── PHOTO GALLERY ── */
+  .photo-gallery {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.5s ease, opacity 0.4s ease;
+    opacity: 0;
+  }
+  .photo-gallery.open { max-height: 600px; opacity: 1; }
+
+  .photo-gallery-inner {
+    padding-top: 1.4rem; margin-top: 1.4rem;
+    border-top: 1px solid var(--line);
+  }
+  .photo-gallery-label {
+    font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--ink-faint); margin-bottom: 1rem;
+  }
+
+  /* 큰 사진 레이아웃: 왼쪽 대표 + 오른쪽 2장 */
+  .photo-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0.75rem;
+    height: 360px;
+  }
+  .photo-slot {
+    border-radius: 0.5rem; overflow: hidden;
+    background: var(--paper-warm);
+    border: 1.5px dashed var(--accent-light);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  /* 첫 번째 슬롯(대표 사진)은 두 행 차지 */
+  .photo-slot:first-child { grid-row: span 2; }
+  .photo-slot img {
+    width: 100%; height: 100%;
+    object-fit: cover; position: absolute; inset: 0;
+  }
+  .photo-placeholder {
+    font-size: 0.68rem; color: var(--ink-faint);
+    text-align: center; letter-spacing: 0.04em; line-height: 1.8;
+    pointer-events: none;
+  }
+  .photo-placeholder span { display: block; font-size: 1.4rem; margin-bottom: 0.3rem; opacity: 0.35; }
+  .photo-slot:first-child .photo-placeholder span { font-size: 2.2rem; }
+
+  /* ── CONTACT ── */
+  .contact { background: #3a2a1e; }
+  .contact .section-label { color: rgba(255,255,255,0.22); }
+  .contact .section-label::after { background: rgba(255,255,255,0.1); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .contact-left h2 {
+    font-family: var(--serif);
+    font-size: 2rem; font-weight: 300; color: #f5ede3; line-height: 1.4;
+    margin-bottom: 1.2rem;
+  }
+  .contact-left p { font-size: 0.88rem; color: rgba(245,237,227,0.5); line-height: 1.8; }
+  .contact-items { display: flex; flex-direction: column; gap: 1.2rem; }
+  .contact-item {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1.1rem 1.3rem;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 0.5rem;
+    background: rgba(255,255,255,0.05);
+  }
+  .contact-ico {
+    font-size: 1.2rem;
+    width: 2.2rem; height: 2.2rem;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(212,184,150,0.18);
+    border-radius: 50%;
+    color: var(--accent-light);
+  }
+  .contact-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(245,237,227,0.35); }
+  .contact-val { font-size: 0.9rem; color: rgba(245,237,227,0.82); margin-top: 0.1rem; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center; padding: 2rem;
+    font-size: 0.75rem; color: var(--ink-faint);
+    border-top: 1px solid var(--line);
+    background: var(--paper);
+  }
+
+  /* ── 반응형 ── */
+  @media (max-width: 680px) {
+    nav { padding: 1rem 1.2rem; }
+    .hero { padding: 5.5rem 1.2rem 3rem; }
+    .hero-inner, .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .hero::before { display: none; }
+    section { padding: 3.5rem 1.2rem; }
+    .chapter-inner { grid-template-columns: 3rem 1fr; gap: 1rem; }
+    .chapter-num { font-size: 2.2rem; }
+    .photo-grid { grid-template-columns: 1fr; grid-template-rows: 220px 160px 160px; height: auto; }
+    .photo-slot:first-child { grid-row: span 1; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── 네비게이션 ── -->
+<nav>
+  <span class="nav-logo">이경희</span> <!-- ✏️ 이름 -->
+  <div class="nav-links">
+    <a href="#about">소개</a>
+    <a href="#act-1">활동</a>
+    <a href="#contact">연락</a>
+  </div>
+</nav>
+
+
+<!-- ── 히어로 (첫 화면) ── -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-eyebrow">Lecturer · Performer · Creator</div>
+
+      <!-- ✏️ 이름 + 직함 -->
+      <h1>이경희<em>강사 · 공예가 · 난타</em></h1>
+
+      <!-- ✏️ 짧은 소개 문구 -->
+      <p class="hero-desc">
+        사람의 권리를 이야기하고, 새로운 가치를 만들며,<br>
+        리듬으로 함께 살아가는 삶을 사랑합니다.
+      </p>
+    </div>
+
+    <div class="hero-visual">
+      <div class="badge-stack">
+
+        <div class="badge">
+          <div class="badge-icon">🕊️</div>
+          <div>
+            <div class="badge-title">인권강사</div>
+            <div class="badge-sub">차이와 존중을 가르치는 시간</div>
+          </div>
+        </div>
+
+        <div class="badge">
+          <div class="badge-icon">♻️</div>
+          <div>
+            <div class="badge-title">새활용시민센터 강사</div>
+            <div class="badge-sub">버려진 것들에 새 생명을</div>
+          </div>
+        </div>
+
+        <div class="badge">
+          <div class="badge-icon">🥁</div>
+          <div>
+            <div class="badge-title">난타</div>
+            <div class="badge-sub">리듬으로 하나 되는 무대</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── 소개 섹션 ── -->
+<section class="about" id="about">
+  <div class="section-inner">
+    <div class="section-label">About</div>
+    <div class="about-grid">
+
+      <div>
+        <!-- ✏️ 이름 -->
+        <div class="about-name">
+          이경희<br>
+          <span style="font-size:0.75rem;color:var(--ink-muted);letter-spacing:0.05em">Lee Kyung-hee</span>
+        </div>
+        <div class="about-divider"></div>
+
+        <!-- ✏️ 키워드 태그 -->
+        <div class="about-tags">
+          <span class="tag">인권강사</span>
+          <span class="tag">새활용</span>
+          <span class="tag">난타</span>
+          <span class="tag">강의</span>
+          <span class="tag">공예</span>
+          <span class="tag">프리랜서</span>
+        </div>
+      </div>
+
+      <!-- ✏️ 자기소개 본문 -->
+      <div class="about-right">
+        <p>
+          안녕하세요, <span class="highlight">이경희</span>입니다.<br>
+          인권강사로서 차이와 존중의 가치를 나누고, 새활용시민센터에서 버려진 것들의 새로운 가능성을 가르칩니다.
+        </p>
+        <p>
+          무대 위에서는 난타로 리듬과 에너지를 전달하며,<br>
+          가르치고 만들고 두드리는 모든 일에서 기쁨을 찾습니다.
+        </p>
+        <p>
+          <span class="highlight">강의 의뢰, 새활용 클래스, 난타 공연 및 협업 제안</span> 등을 언제나 환영합니다.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ── 01 인권강사 ── -->
+<section class="act-1" id="act-1">
+  <div class="chapter-inner">
+    <div class="chapter-num">01</div>
+    <div>
+      <h2 class="chapter-title">인권강사</h2>
+      <div class="chapter-accent"></div>
+      <p class="chapter-desc">
+        차이를 이해하고 서로를 존중하는 힘을 키우는 강의입니다.<br>
+        학교, 기업, 지역사회 등 다양한 현장에서 인권감수성을 나눕니다.
+      </p>
+      <button class="more-btn" onclick="toggleGallery('gallery-1', this)">
+        더 알아보기 <span class="arrow">↓</span>
+      </button>
+    </div>
+  </div>
+  <div class="photo-gallery" id="gallery-1">
+    <div class="photo-gallery-inner">
+      <div class="photo-gallery-label">사진</div>
+      <div class="photo-grid">
+        <!-- ✏️ 대표 사진: placeholder 안의 div를 <img src="파일명.jpg" alt="설명"> 으로 교체 -->
+        <div class="photo-slot"><div class="photo-placeholder"><span>📷</span>대표 사진</div></div>
+        <div class="photo-slot"><div class="photo-placeholder"><span>📷</span>사진 추가</div></div>
+        <div class="photo-slot"><div class="photo-placeholder"><span>📷</span>사진 추가</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── 02 새활용시민센터 강사 ── -->
+<section class="act-2" id="act-2">
+  <div class="chapter-inner">
+    <div class="chapter-num">02</div>
+    <div>
+      <h2 class="chapter-title">새활용시민센터 강사</h2>
+      <div class="chapter-accent"></div>
+      <p class="chapter-desc">
+        버려지는 것들을 새롭게 바라보고 직접 만들어 보는 수업입니다.<br>
+        환경과 창의력을 동시에 키우는 새활용 공예 클래스를 진행합니다.
+      </p>
+      <button class="more-btn" onclick="toggleGallery('gallery-2', this)">
+        더 알아보기 <span class="arrow">↓</span>
+      </button>
+    </div>
+  </div>
+  <div class="photo-gallery" id="gallery-2">
+    <div class="photo-gallery-inner">
+      <div class="photo-gallery-label">사진</div>
+      <div class="photo-grid">
+        <div class="photo-slot"><div class="photo-placeholder"><span>📷</span>대표 사진</div></div>
+        <div class="photo-slot"><div class="photo-placeholder"><span>📷</span>사진 추가</div></div>
+        <div class="photo-slot"><div class="photo-placeholder"><span>📷</span>사진 추가</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── 03 난타 ── -->
+<section class="act-3" id="act-3">
+  <div class="chapter-inner">
+    <div class="chapter-num">03</div>
+    <div>
+      <h2 class="chapter-title">난타</h2>
+      <div class="chapter-accent"></div>
+      <p class="chapter-desc">
+        일상의 도구들로 만들어내는 신나는 리듬과 에너지.<br>
+        공연, 체험 프로그램, 팀빌딩 등 다양한 형태로 함께합니다.
+      </p>
+      <button class="more-btn" onclick="toggleGallery('gallery-3', this)">
+        더 알아보기 <span class="arrow">↓</span>
+      </button>
+    </div>
+  </div>
+  <div class="photo-gallery" id="gallery-3">
+    <div class="photo-gallery-inner">
+      <div class="photo-gallery-label">사진</div>
+      <div class="photo-grid">
+        <div class="photo-slot"><div class="photo-placeholder"><span>📷</span>대표 사진</div></div>
+        <div class="photo-slot"><div class="photo-placeholder"><span>📷</span>사진 추가</div></div>
+        <div class="photo-slot"><div class="photo-placeholder"><span>📷</span>사진 추가</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── 연락처 섹션 ── -->
+<section class="contact" id="contact">
+  <div class="section-inner">
+    <div class="section-label">Contact</div>
+    <div class="contact-grid">
+
+      <!-- ✏️ 연락처 섹션 왼쪽 문구 -->
+      <div class="contact-left">
+        <h2>함께 만들어요,<br>무엇이든 환영해요.</h2>
+        <p>강의 문의, 새활용 클래스 참가,<br>난타 공연 및 협업 제안까지<br>편하게 연락해 주세요.</p>
+      </div>
+
+      <!-- ✏️ 연락처 항목들 -->
+      <div class="contact-items">
+
+        <div class="contact-item">
+          <div class="contact-ico">📧</div>
+          <div>
+            <div class="contact-label">이메일</div>
+            <div class="contact-val">rud5355@daum.net</div> <!-- ✏️ 이메일 -->
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-ico">📱</div>
+          <div>
+            <div class="contact-label">전화 · 카카오</div>
+            <div class="contact-val">010-9552-3100</div> <!-- ✏️ 전화번호 -->
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-ico">📍</div>
+          <div>
+            <div class="contact-label">활동 지역</div>
+            <div class="contact-val">충북권</div> <!-- ✏️ 지역 -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── 푸터 ── -->
+<footer>
+  © 2026 이경희 · 모든 문의는 위 연락처로 부탁드립니다<!-- ✏️ 연도/이름 수정 가능 -->
+</footer>
+
+<script>
+  function toggleGallery(id, btn) {
+    const gallery = document.getElementById(id);
+    const isOpen = gallery.classList.contains('open');
+    gallery.classList.toggle('open', !isOpen);
+    btn.classList.toggle('open', !isOpen);
+  }
+</script>
+
+</body>
+</html>
